@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Blog Project</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        {# Custom CSS#}
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+        {# Fonts#}
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+<body>
+
+  <nav class="navbar navbar-expand-md bg-light mb-3 techfont custom-navbar">
+    <div class="container">
+
+
+      <ul class="nav navbar-nav">
+        <li><a class='navbar-brand bigbrand' href="{% url 'post-list' %}">My Tech blog</a></li>
+        <li class='nav-items' ><a class='nav-link' href="{% url 'about'%}">About</a></li>
+        <li class='nav-items'><a class='nav-link' href="https://www.github.com">Github</a></li>
+        <li class='nav-items'><a class='nav-link' href="https://www.linkedin.com">LinkedIn</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav ">
+        {% if user.is_authenticated %}
+            <li class='nav-items'>
+              <a class='nav-link' href="{% url 'post-new' %}" >New Post</a>
+            </li>
+
+            <li class='nav-items'>
+              <a class='nav-link' href="{% url 'post-draft-list' %}">Drafts</a>
+            </li>
+            <li class='nav-items'>
+              <a class='nav-link' href="{% url 'logout' %}" >Log out</a>
+            </li>
+
+            <li class='nav-items'>
+              <a class='nav-link' >Welcome: {{ user.username }}</a>
+            </li>
+        {% else %}
+            <li class='nav-items'><a class='nav-link' href="{% url 'login' %}" >Login</a></li>
+        {% endif %}
+
+      </ul>
+  </div>
+</nav>
+
+  {# The actual blog posts#}
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="blog_posts">
+                    {% block content %}
+                    {% endblock %}
+
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+{# SCRIPTS#}
+
+<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
+</body>
+</html>
